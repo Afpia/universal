@@ -1,0 +1,41 @@
+{
+	"name": "universal",
+	"private": true,
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "pnpm start:back && pnpm start:front",
+		"start:front": "pnpm --prefix ./front dev",
+		"start:back": "pnpm --prefix ./back dev",
+		"format": "prettier --write .",
+		"prepare": "husky",
+		"commit": "git-cz"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@commitlint/cli": "^19.4.1",
+		"@commitlint/cz-commitlint": "^19.4.0",
+		"@commitlint/types": "^19.0.3",
+		"commitizen": "^4.3.0",
+		"concurrently": "^8.2.2",
+		"husky": "^9.1.5",
+		"lint-staged": "^15.2.10",
+		"prettier": "^3.3.3"
+	},
+	"lint-staged": {
+		"**/*.{js,jsx,ts,tsx}": [
+			"prettier --write"
+		],
+		"**/*.{json,yaml,yml,toml}": [
+			"prettier --write"
+		]
+	},
+	"config": {
+		"commitizen": {
+			"path": "@commitlint/cz-commitlint"
+		}
+	}
+}
