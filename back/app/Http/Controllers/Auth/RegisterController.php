@@ -12,11 +12,15 @@ class RegisterController extends Controller
 {
     public function store(Request $request)
     {
+
+
         $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required', 'sstring', 'email', 'unique:users'],
+            'name' => ['required' | 'string'],
+            'email' => ['required', 'string', 'email', 'unique:users'],
             'password' => ['reqired', 'confirmed', 'min:3']
         ]);
+
+        dd(session('errors'));
 
         $user = User::create([
             'name' => $request->name,

@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/api/register', [RegisterController::class, 'store']);
+Route::view('/', 'welcome');
+
