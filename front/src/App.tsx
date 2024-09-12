@@ -10,29 +10,43 @@ function App() {
 				validate={values => {
 					console.log(values)
 				}}
-				onSubmit={(values, { setSubmitting }) => {
-					api
-						.get('/sanctum/csrf-cookie')
-						.then(response => {
-							console.log(response.data)
-							api
-								.post('/api/your-route', {
-									email: values.email,
-									password: values.password,
-									_token: response.data
-								})
-								.then(response => {
-									console.log(response.data)
-									setSubmitting(false)
-								})
-								.catch(error => {
-									console.error(error)
-									setSubmitting(false)
-								})
+				onSubmit={async (values, { setSubmitting }) => {
+					try {
+						const response = await api.get('/sanctum/csrf-cookie')
+						const csrfToken = response.data
+						const request = await api.post('/api/your-route', {
+							email: values.email,
+							password: values.password,
+							_token: csrfToken
 						})
-						.catch(error => {
-							console.error(error)
-						})
+						console.log(request.data)
+						setSubmitting(false)
+					} catch (error) {
+						console.error(error)
+						setSubmitting(false)
+					}
+					// api
+					// 	.get('/sanctum/csrf-cookie')
+					// 	.then(response => {
+					// 		console.log(response.data)
+					// 		api
+					// 			.post('/api/your-route', {
+					// 				email: values.email,
+					// 				password: values.password,
+					// 				_token: response.data
+					// 			})
+					// 			.then(response => {
+					// 				console.log(response.data)
+					// 				setSubmitting(false)
+					// 			})
+					// 			.catch(error => {
+					// 				console.error(error)
+					// 				setSubmitting(false)
+					// 			})
+					// 	})
+					// 	.catch(error => {
+					// 		console.error(error)
+					// 	})
 				}}
 			>
 				{({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
