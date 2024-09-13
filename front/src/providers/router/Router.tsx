@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { ROUTES } from '../../utils/constants/routes'
+import { ROUTES } from '../../utils/constants/ROUTES'
 import { Layout } from '../../components/layout/Layout'
 import { Home, Login, NotFound, Signup } from '../../pages'
 import { PrivateRouter } from './PrivateRouter'

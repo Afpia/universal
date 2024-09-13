@@ -10,7 +10,7 @@ const LoginScheme = object().shape({
 
 export const Login = () => {
 	return (
-		<div className='flex h-screen flex-col items-center justify-center'>
+		<div className='mt-20 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Login</h1>
 			<Formik
 				initialValues={{ email: '', password: '' }}
@@ -42,7 +42,7 @@ export const Login = () => {
 							value={values.email}
 							placeholder='Email'
 							disabled={isSubmitting}
-							className='h-8 rounded-md px-2 text-white outline-none'
+							className='h-10 rounded-md bg-[#262D33] px-2 text-white outline-none'
 						/>
 						<ErrorMessage name='email' component='div' />
 						<input
@@ -53,7 +53,7 @@ export const Login = () => {
 							value={values.password}
 							disabled={isSubmitting}
 							placeholder='Password'
-							className='h-8 rounded-md px-2 text-white outline-none'
+							className='h-10 rounded-md bg-[#262D33] px-2 text-white outline-none'
 						/>
 						<ErrorMessage name='password' component='div' />
 						<button
