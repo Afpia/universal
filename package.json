@@ -8,7 +8,7 @@
 		"start": "concurrently \"pnpm --prefix ./front dev\" \"cd back & php artisan serve\"",
 		"front": "pnpm --prefix ./front dev",
 		"back": "cd back & php artisan serve",
-		"format": "prettier --write .",
+		"format": "prettier --config ./front/.prettierrc --write .",
 		"prepare": "husky",
 		"commit": "git-cz"
 	},
@@ -27,10 +27,10 @@
 	},
 	"lint-staged": {
 		"**/*.{js,jsx,ts,tsx}": [
-			"prettier --write"
+			"prettier --config ./front/.prettierrc --write"
 		],
 		"**/*.{json,yaml,yml,toml}": [
-			"prettier --write"
+			"prettier --config ./front/.prettierrc --write"
 		]
 	},
 	"config": {
