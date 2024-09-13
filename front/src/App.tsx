@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ErrorMessage, Formik } from 'formik'
+import { api } from './utils/api/instance'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	return (
+		<>
+			<h1 className='mb-6'>Тестовая форма</h1>
+			<Formik
+				initialValues={{ name: '', email: '', password: '' }}
+				validate={values => {
+					console.log(values)
+				}}
+				onSubmit={(values, { setSubmitting }) => {
+					api
+						.get('/sanctum/csrf-cookie')
+						.then(response => {
+							console.log(response.data)
+							api
+								.post('/api/register', {
+									name: values.name,
+									email: values.email,
+									password: values.password,
+									password_confirmation: values.password,
+									_token: response.data
+								})
+								.then(response => {
+									console.log(response.data)
+									setSubmitting(false)
+								})
+								.catch(error => {
+									console.error(error)
+									setSubmitting(false)
+								})
+						})
+						.catch(error => {
+							console.error(error)
+						})
+				}}
+			>
+				{({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+					<form onSubmit={handleSubmit} className='m-auto flex w-[300px] flex-col gap-3'>
+						<input type='text' name='name' onChange={handleChange} onBlur={handleBlur} value={values.name} className='h-8' />
+						<ErrorMessage name='name' component='div' />
+						<input type='email' name='email' onChange={handleChange} onBlur={handleBlur} value={values.email} className='h-8' />
+						<ErrorMessage name='email' component='div' />
+						<input
+							type='password'
+							name='password'
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.password}
+							className='h-8'
+						/>
+						<ErrorMessage name='password' component='div' />
+						<input
+							type='password'
+							name='password_confirmation'
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.password}
+							className='h-8'
+						/>
+						<ErrorMessage name='password_confirmation' component='div' />
+						<button type='submit' disabled={isSubmitting}>
+							Отправить
+						</button>
+					</form>
+				)}
+			</Formik>
+		</>
+	)
 }
 
 export default App

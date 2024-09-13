@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -7,27 +6,31 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
     public function store(Request $request)
     {
-
-
         $request->validate([
-            'name' => ['required' | 'string'],
-            'email' => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['reqired', 'confirmed', 'min:3']
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:3', 'confirmed']
         ]);
 
-        dd(session('errors'));
-
+        // Если валидация прошла, создаем пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         Auth::login($user);
+
+        return response()->json([
+            'message' => 'User registered successfully',
+            'user' => $user,
+        ]);
     }
 }
+

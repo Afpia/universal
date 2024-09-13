@@ -1,3 +1,7 @@
+<?php 
+    echo session('errors');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +13,6 @@
 
 <body>
     <form action="/api/register" method="post">
-        @csrf
         <input type="text" name="name">
         <input type="email" name="email">
         <input type="password" name="password">
