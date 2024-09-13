@@ -12,11 +12,9 @@
 </head>
 
 <body>
-    <form action="/api/register" method="post">
-        <input type="text" name="name">
+    <form action="/api/login" method="post">
         <input type="email" name="email">
         <input type="password" name="password">
-        <input type="password" name="password_confirmation">
         <button>отправить</button>
     </form>
 </body>
