@@ -23,14 +23,15 @@
 		"concurrently": "^8.2.2",
 		"husky": "^9.1.5",
 		"lint-staged": "^15.2.10",
-		"prettier": "^3.3.3"
+		"prettier": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.6"
 	},
 	"lint-staged": {
 		"**/*.{js,jsx,ts,tsx}": [
-			"prettier --config ./front/.prettierrc --write"
+			"prettier --write"
 		],
 		"**/*.{json,yaml,yml,toml}": [
-			"prettier --config ./front/.prettierrc --write"
+			"prettier --write"
 		]
 	},
 	"config": {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/api/register', [RegisterController::class, 'store']);
+Route::post('/api/login', [LoginController::class, 'login']);
+
+Route::view('/', 'welcome');
+
