@@ -34,6 +34,4 @@ class LoginController extends Controller
             'user' => $user
         ]);
     }
-
-
 }
