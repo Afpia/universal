@@ -1,13 +1,7 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
 import { Link } from 'react-router-dom'
-import { object, string } from 'yup'
-
-const SignupScheme = object().shape({
-	nickname: string().min(5, 'Too Short!').required('Required'),
-	email: string().email('Invalid email').min(2, 'Too Short!').required('Required'),
-	password: string().min(6, 'Password minimum 6 characters').required('Required')
-})
+import { SignupScheme } from '../utils/helpers/SignupScheme'
 
 export const Signup = () => {
 	return (
