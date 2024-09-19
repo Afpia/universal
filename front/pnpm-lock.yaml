@@ -35,6 +35,9 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
     devDependencies:
+      '@afpia/prettier':
+        specifier: ^1.0.0
+        version: 1.0.0(prettier@3.3.3)
       '@eslint/js':
         specifier: ^9.9.0
         version: 9.9.1
@@ -65,9 +68,6 @@ importers:
       postcss:
         specifier: ^8.4.45
         version: 8.4.45
-      prettier:
-        specifier: ^3.3.3
-        version: 3.3.3
       prettier-plugin-tailwindcss:
         specifier: ^0.6.6
         version: 0.6.6(prettier@3.3.3)
@@ -85,6 +85,11 @@ importers:
         version: 5.4.3
 
 packages:
+  '@afpia/prettier@1.0.0':
+    resolution: { integrity: sha512-do5FL+2C1KT0rBCyHxiEAXj2MYLD+EXcRxLkli7MVXgKCt4IFJ3X6I0rQHAtcSNNBPgXn+u9urWi6aXhJu6gdw== }
+    peerDependencies:
+      prettier: ^3.3.3
+
   '@alloc/quick-lru@5.2.0':
     resolution: { integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw== }
     engines: { node: '>=10' }
@@ -1533,6 +1538,10 @@ packages:
     resolution: { integrity: sha512-wPbgkJRCqIf+OHyiTBQoJiP5PFuAXaWiJK6AmYkzQAh5/c2K9hzSApBZG5wV9KoKSePF7sAxmNSvh/13YHkFDg== }
 
 snapshots:
+  '@afpia/prettier@1.0.0(prettier@3.3.3)':
+    dependencies:
+      prettier: 3.3.3
+
   '@alloc/quick-lru@5.2.0': {}
 
   '@babel/runtime@7.25.6':

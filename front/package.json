@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
+		"format": "prettier .",
 		"lint": "eslint .",
 		"preview": "vite preview"
 	},
@@ -21,6 +22,7 @@
 		"yup": "^1.4.0"
 	},
 	"devDependencies": {
+		"@afpia/prettier": "^1.0.0",
 		"@eslint/js": "^9.9.0",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
@@ -31,7 +33,6 @@
 		"eslint-plugin-react-refresh": "^0.4.9",
 		"globals": "^15.9.0",
 		"postcss": "^8.4.45",
-		"prettier": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.6",
 		"tailwindcss": "^3.4.10",
 		"typescript": "^5.5.3",
