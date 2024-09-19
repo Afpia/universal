@@ -18,7 +18,6 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:3', 'confirmed']
         ]);
 
-        // Если валидация прошла, создаем пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,

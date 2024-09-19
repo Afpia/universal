@@ -23,4 +23,19 @@ class PostController extends Controller
 
         return response()->json($post);
     }
+
+    public function addPost(Request $request)
+    {
+        $post = Post::create([
+            'title' => $request->title,
+            'text' => $request->text,
+            'category_id' => $request->category,
+            'user_id' => $request->user,
+        ]);
+
+        return response()->json([
+            'message' => 'succes',
+            'user' => $post,
+        ]);
+    }
 }

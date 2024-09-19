@@ -26,6 +26,8 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/posts/{lim?}', [PostController::class, 'posts']);
 Route::get('/post/{id}', [PostController::class, 'post']);
+Route::post('/addPost', [PostController::class, 'addPost']);
+
 
 
 
