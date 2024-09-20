@@ -1,3 +1,4 @@
+/** @type {import('prettier').Config} */
 import { prettier } from '@afpia/prettier'
 
 export default {

@@ -13,7 +13,7 @@
 		"update-back": "cd back && composer i",
 		"update-front": "cd front && pnpm i",
 		"prepare": "husky",
-		"commit": "git-cz"
+		"commit": "git add . && git-cz"
 	},
 	"keywords": [],
 	"author": "",
