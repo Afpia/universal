@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <form action="/api/login" method="post">
+    <form action="/api/register" method="post">
+        <input type="text" name="nickname">
         <input type="email" name="email">
         <input type="password" name="password">
         <button>отправить</button>

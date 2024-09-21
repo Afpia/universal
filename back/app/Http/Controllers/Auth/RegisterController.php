@@ -13,14 +13,14 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'nickname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:3', 'confirmed']
+            'password' => ['required', 'string', 'min:3']
         ]);
 
         // Если валидация прошла, создаем пользователя
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->nickname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

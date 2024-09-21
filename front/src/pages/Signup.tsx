@@ -18,12 +18,13 @@ export const Signup = () => {
 				validationSchema={SignupScheme}
 				onSubmit={async (values, { setSubmitting }) => {
 					try {
-						const response = await api.get('/sanctum/csrf-cookie')
-						const csrfToken = response.data
+						// const response = await api.get('/sanctum/csrf-cookie')
+						// const csrfToken = response.data
 						const request = await api.post('/api/register', {
+							nickname: values.nickname,
 							email: values.email,
-							password: values.password,
-							_token: csrfToken
+							password: values.password
+							// _token: csrfToken
 						})
 						console.log(request.data)
 						setSubmitting(false)
