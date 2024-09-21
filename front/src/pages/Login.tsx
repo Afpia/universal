@@ -2,6 +2,7 @@ import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
 import { Link } from 'react-router-dom'
 import { object, string } from 'yup'
+import { useQueryClient } from 'react-query'
 
 const LoginScheme = object().shape({
 	email: string().email('Invalid email').min(2, 'Too Short!').required('Required'),
@@ -9,22 +10,24 @@ const LoginScheme = object().shape({
 })
 
 export const Login = () => {
+	const queryClient = useQueryClient()
+
 	return (
-		<div className='mt-20 flex flex-col items-center justify-center'>
+		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Login</h1>
 			<Formik
 				initialValues={{ email: '', password: '' }}
 				validationSchema={LoginScheme}
 				onSubmit={async (values, { setSubmitting }) => {
 					try {
-						// const response = await api.get('/sanctum/csrf-cookie')
-						// const csrfToken = response.data
-						const request = await api.post('/api/login', {
-							email: values.email,
-							password: values.password
-							// _token: csrfToken
+						const data = await queryClient.fetchQuery('Login', async () => {
+							const response = await api.post('/api/login', {
+								email: values.email,
+								password: values.password
+							})
+							return response.data
 						})
-						console.log(request.data)
+						console.log(data)
 						setSubmitting(false)
 					} catch (error) {
 						console.error(error)

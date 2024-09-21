@@ -2,12 +2,13 @@ import { Menu, Search, UserRound } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { HeaderWeather } from './HeaderWeather'
+import { useAuth } from '../../../providers/auth'
 
 export const Header = () => {
 	const searchInputRef = useRef<HTMLInputElement>(null)
 	const [currentTime, setCurrentTime] = useState(new Date())
-
 	const { pathname } = useLocation()
+	const { session } = useAuth()
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -32,7 +33,7 @@ export const Header = () => {
 	}, [])
 
 	return (
-		<>
+		<header>
 			<div className='wrapper'>
 				<div className='flex h-14 w-full justify-between border-b border-gray-400'>
 					<div className='flex'>
@@ -63,7 +64,11 @@ export const Header = () => {
 								<p className='text-[12px] text-gray-400'>3 month for $19</p>
 							</div>
 						</div>
-						{pathname === '/' ? (
+						{session.isLogin ? (
+							<Link to={'/profile'} className='flex w-[68px] items-center justify-center gap-2'>
+								Профиль
+							</Link>
+						) : pathname === '/' ? (
 							<Link to={'/login'} className='flex w-[68px] items-center justify-center gap-2'>
 								<UserRound />
 								<p>Log In</p>
@@ -108,6 +113,6 @@ export const Header = () => {
 					<p>EDUCATION</p>
 				</div>
 			</div>
-		</>
+		</header>
 	)
 }

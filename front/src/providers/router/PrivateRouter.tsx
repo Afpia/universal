@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { ROUTES } from '../../utils/constants/routes'
+import { ROUTES } from '../../utils/constants/ROUTES'
+import { useAuth } from '../auth'
 
 export const PrivateRouter = () => {
-	const auth = true
+	const { session } = useAuth()
 
-	return auth ? <Outlet /> : <Navigate to={ROUTES.LOGIN} replace={true} />
+	return session.isLogin ? <Outlet /> : <Navigate to={ROUTES.LOGIN} replace={true} />
 }

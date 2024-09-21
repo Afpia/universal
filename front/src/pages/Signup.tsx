@@ -11,7 +11,7 @@ const SignupScheme = object().shape({
 
 export const Signup = () => {
 	return (
-		<div className='mt-20 flex flex-col items-center justify-center'>
+		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Signup</h1>
 			<Formik
 				initialValues={{ nickname: '', email: '', password: '' }}
