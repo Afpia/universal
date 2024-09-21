@@ -13,12 +13,17 @@ class Post extends Model
         'title',
         'text',
         'category_id',
-        'user_id'
+        'user_id',
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function formatDate()
+    {
+        return $this->created_at->format('F j');
     }
 
     public function user()

@@ -4,7 +4,7 @@ import { api } from '../utils/api/instance'
 import { Link } from 'react-router-dom'
 
 export const Home = () => {
-	const { isLoading, error, data } = useQuery('Posts', () => api.get(`posts?limit=10`).then(res => res.data))
+	const { isLoading, error, data } = useQuery('Posts', () => api.get(`api/posts/10`).then(res => res.data))
 
 	// const data = [
 	// 	{
@@ -56,8 +56,8 @@ export const Home = () => {
 						{data.map((post: any) => (
 							<Link to={`/post/${post.id}`} className='flex h-[170px] w-[260px] flex-col rounded-md bg-white p-6'>
 								<h2 className='pb-[5px] text-[16px] font-bold text-[#262D33]'>{post.title}</h2>
-								<p className='pb-[10px]'>{post.description}</p>
-								<p>{post.createDate}</p>
+								<p className='pb-[10px]'>{post.text}</p>
+								<p>{post.form_date}</p>
 							</Link>
 						))}
 					</div>

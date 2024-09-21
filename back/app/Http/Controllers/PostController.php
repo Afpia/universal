@@ -10,9 +10,15 @@ class PostController extends Controller
     public function posts(int $lim = 5)
     {
         $posts = Post::with('category', 'user')
-        ->orderBy('created_at', 'desc')
-        ->take($lim) 
-        ->get();
+            ->orderBy('created_at', 'desc')
+            ->take($lim)
+            ->get();
+
+        $posts = $posts->map(function ($post) {
+            $post->form_date = $post->formatDate();
+            ;
+            return $post;
+        });
 
         return response()->json($posts);
     }
@@ -20,6 +26,8 @@ class PostController extends Controller
     public function post($id)
     {
         $post = Post::with('category', 'user')->find($id);
+
+        $post->form_date = $post->formatDate();
 
         return response()->json($post);
     }
