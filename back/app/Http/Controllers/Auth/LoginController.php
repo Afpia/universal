@@ -20,11 +20,7 @@ class LoginController extends Controller
         ]);
 
         if (!Auth::attempt($credentials)) {
-            return back()
-                ->withInput()
-                ->withErrors([
-                    'email' => 'неверный логин или пароль'
-                ]);
+            abort(512);
         }
 
         $user = Auth::user();

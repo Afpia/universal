@@ -15,7 +15,7 @@ class PostController extends Controller
             ->get();
 
         $posts = $posts->map(function ($post) {
-            $post->form_date = $post->formatDate();
+            $post->date = $post->formatDate();
             ;
             return $post;
         });
@@ -27,7 +27,7 @@ class PostController extends Controller
     {
         $post = Post::with('category', 'user')->find($id);
 
-        $post->form_date = $post->formatDate();
+        $post->date = $post->formatDate();
 
         return response()->json($post);
     }
