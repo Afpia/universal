@@ -14,7 +14,7 @@ export const Post = () => {
 
 	return (
 		<>
-			{/* <div className='wrapper'>
+			<div className='wrapper'>
 				{isLoading ? (
 					<p className='flex h-[50vh] items-center justify-center text-[20px] font-bold'>Загрузка поста...</p>
 				) : error ? (
@@ -22,22 +22,23 @@ export const Post = () => {
 				) : (
 					''
 				)}
-			</div> */}
-			<div className='mt-20 flex flex-col items-center justify-center'>
-				<h2 className='mb-6 text-center text-[40px] font-bold'>{data?.title}</h2>
-				<p className='mb-4 w-[800px]'>{data?.text}</p>
-				<p className='mb-[50px] flex w-[800px] justify-end font-roboto text-[15px] font-bold'>Date create: {data?.date}</p>
 			</div>
+			{data && (
+				<div className='mt-20 flex flex-col items-center justify-center'>
+					<h2 className='mb-6 text-center text-[40px] font-bold'>{data?.title}</h2>
+					<p className='mb-4 w-[800px]'>{data?.text}</p>
+					<p className='mb-[50px] flex w-[800px] justify-end font-roboto text-[15px] font-bold'>Date create: {data?.date}</p>
+				</div>
+			)}
 			<div className='wrapper flex w-[830px] justify-between'>
-				{true && (
+				{session.isLogin && (
 					<>
 						<Formik
 							initialValues={{ comment: '' }}
 							onSubmit={async (values, { setSubmitting }) => {
 								try {
 									const data = await queryClient.fetchQuery('AddComment', async () => {
-										const response = await api.post('/addComment', {
-											idPost: id,
+										const response = await api.post(`/posts/${id}/comments`, {
 											comment: values.comment
 										})
 										return response.data

@@ -35,7 +35,7 @@ export const Profile = () => {
 				validationSchema={SignupScheme}
 				onSubmit={async (values, { setSubmitting, setFieldError }) => {
 					try {
-						const data = await queryClient.fetchQuery<SessionField>('Login', async () => {
+						const data = await queryClient.fetchQuery<SessionField>('UpdateProfile', async () => {
 							const response = await api.post('/updateProfile', {
 								nickname: values.nickname,
 								email: values.email,
