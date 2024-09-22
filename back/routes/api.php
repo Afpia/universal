@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PostController;
@@ -25,6 +26,10 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/posts/{lim?}', [PostController::class, 'posts']);
+Route::get('/post/{id}', [PostController::class, 'post']);
+Route::post('/addPost', [PostController::class, 'addPost']);
+
+Route::get('/comment/{post}', [CommentController::class, 'index']);
 Route::get('/post/{id}', [PostController::class, 'post']);
 Route::post('/addPost', [PostController::class, 'addPost']);
 
