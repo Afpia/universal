@@ -1,7 +1,6 @@
 import { RuleConfigSeverity } from '@commitlint/types'
 
 export default {
-	// parserPreset: 'conventional-changelog-conventionalcommits', // пакет нужен для ведения CHANGELOG.md
 	rules: {
 		'body-leading-blank': [RuleConfigSeverity.Warning, 'always'], // body начинается с пустой строки
 		'body-max-line-length': [RuleConfigSeverity.Error, 'always', 100], // body макс символы

@@ -1,35 +1,48 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
-import { Link } from 'react-router-dom'
-import { object, string } from 'yup'
-
-const SignupScheme = object().shape({
-	nickname: string().min(5, 'Too Short!').required('Required'),
-	email: string().email('Invalid email').min(2, 'Too Short!').required('Required'),
-	password: string().min(6, 'Password minimum 6 characters').required('Required')
-})
+import { Link, redirect } from 'react-router-dom'
+import { SignupScheme } from '../utils/helpers/SignupScheme'
+import { useAuth } from '../providers/auth'
+import { useQueryClient } from 'react-query'
+import { SessionField } from '../providers/auth/types'
+import { AxiosError } from 'axios'
 
 export const Signup = () => {
+	const queryClient = useQueryClient()
+	const { setSession } = useAuth()
+
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Signup</h1>
 			<Formik
 				initialValues={{ nickname: '', email: '', password: '' }}
 				validationSchema={SignupScheme}
-				onSubmit={async (values, { setSubmitting }) => {
+				onSubmit={async (values, { setSubmitting, setFieldError }) => {
 					try {
-						// const response = await api.get('/sanctum/csrf-cookie')
-						// const csrfToken = response.data
-						const request = await api.post('/api/register', {
-							nickname: values.nickname,
-							email: values.email,
-							password: values.password
-							// _token: csrfToken
+						const data = await queryClient.fetchQuery<SessionField>('Signup', async () => {
+							const response = await api.post('/register', {
+								nickname: values.nickname,
+								email: values.email,
+								password: values.password
+							})
+							return response.data
 						})
-						console.log(request.data)
+						console.log(data)
+						setSession({
+							isLogin: true,
+							userId: data.userId,
+							userName: data.userName,
+							userEmail: data.userEmail
+						})
+						redirect('/')
 						setSubmitting(false)
 					} catch (error) {
 						console.error(error)
+						if (error instanceof AxiosError) {
+							if (error.status === 513) {
+								setFieldError('email', 'This login is already taken')
+							}
+						}
 						setSubmitting(false)
 					}
 				}}

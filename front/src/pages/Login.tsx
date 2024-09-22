@@ -1,16 +1,15 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
-import { Link } from 'react-router-dom'
-import { object, string } from 'yup'
+import { Link, redirect } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
-
-const LoginScheme = object().shape({
-	email: string().email('Invalid email').min(2, 'Too Short!').required('Required'),
-	password: string().min(6, 'Password minimum 6 characters').required('Required')
-})
+import { useAuth } from '../providers/auth'
+import { SessionField } from '../providers/auth/types'
+import { AxiosError } from 'axios'
+import { LoginScheme } from '../utils/helpers/LoginScheme'
 
 export const Login = () => {
 	const queryClient = useQueryClient()
+	const { setSession } = useAuth()
 
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
@@ -18,19 +17,31 @@ export const Login = () => {
 			<Formik
 				initialValues={{ email: '', password: '' }}
 				validationSchema={LoginScheme}
-				onSubmit={async (values, { setSubmitting }) => {
+				onSubmit={async (values, { setSubmitting, setFieldError }) => {
 					try {
-						const data = await queryClient.fetchQuery('Login', async () => {
-							const response = await api.post('/api/login', {
+						const data = await queryClient.fetchQuery<SessionField>('Login', async () => {
+							const response = await api.post('/login', {
 								email: values.email,
 								password: values.password
 							})
 							return response.data
 						})
 						console.log(data)
+						setSession({
+							isLogin: true,
+							userId: data.userId,
+							userName: data.userName,
+							userEmail: data.userEmail
+						})
+						redirect('/')
 						setSubmitting(false)
 					} catch (error) {
 						console.error(error)
+						if (error instanceof AxiosError) {
+							if (error.status === 512) {
+								setFieldError('password', 'Invalid login or password')
+							}
+						}
 						setSubmitting(false)
 					}
 				}}
