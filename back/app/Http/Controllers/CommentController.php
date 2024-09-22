@@ -14,4 +14,14 @@ class CommentController extends Controller
 
         return response()->json($comments);
     }
+
+    public function store(Request $request, Post $post)
+    {
+        $comment = $post->comments()->create([
+            'content' => $request->comment,
+            'user_id' => auth()->id(),
+        ]);
+
+        return response()->json($comment, 201);
+    }
 }

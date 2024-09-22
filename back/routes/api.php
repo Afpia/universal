@@ -31,7 +31,7 @@ Route::post('/addPost', [PostController::class, 'addPost']);
 
 Route::get('/comment/{post}', [CommentController::class, 'index']);
 Route::get('/post/{id}', [PostController::class, 'post']);
-Route::post('/addPost', [PostController::class, 'addPost']);
+Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
 
 
 
