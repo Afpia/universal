@@ -20,7 +20,7 @@ export const Login = () => {
 				onSubmit={async (values, { setSubmitting, setFieldError }) => {
 					try {
 						const data = await queryClient.fetchQuery<SessionField>('Login', async () => {
-							const response = await api.post('/api/login', {
+							const response = await api.post('/login', {
 								email: values.email,
 								password: values.password
 							})
@@ -38,11 +38,8 @@ export const Login = () => {
 					} catch (error) {
 						console.error(error)
 						if (error instanceof AxiosError) {
-							if (error.status === 511) {
-								setFieldError('email', 'This email does not exist')
-							}
 							if (error.status === 512) {
-								setFieldError('password', 'Password incorrect')
+								setFieldError('password', 'Invalid login or password')
 							}
 						}
 						setSubmitting(false)
