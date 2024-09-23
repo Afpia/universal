@@ -12,12 +12,8 @@
 </head>
 
 <body>
-    <form action="/api/addPost" method="post">
-        <input type="text" name="title">
-        <input type="text" name="text">
-        <input type="text" name="category">
-        <input type="text" name="user">
-
+    <form action="/api/posts/47/comments" method="post">
+        <input type="text" name="comment">
         <button>отправить</button>
     </form>
 </body>

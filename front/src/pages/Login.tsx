@@ -1,6 +1,6 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
-import { Link, redirect } from 'react-router-dom'
+import { Link, Navigate, redirect, useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
 import { useAuth } from '../providers/auth'
 import { SessionField } from '../providers/auth/types'
@@ -10,13 +10,15 @@ import { LoginScheme } from '../utils/helpers/LoginScheme'
 export const Login = () => {
 	const queryClient = useQueryClient()
 	const { setSession } = useAuth()
+	const navigate = useNavigate()
 
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Login</h1>
 			<Formik
 				initialValues={{ email: '', password: '' }}
-				validationSchema={LoginScheme}
+				validationSche
+				ma={LoginScheme}
 				onSubmit={async (values, { setSubmitting, setFieldError }) => {
 					try {
 						const data = await queryClient.fetchQuery<SessionField>('Login', async () => {
@@ -27,13 +29,14 @@ export const Login = () => {
 							return response.data
 						})
 						console.log(data)
+						navigate('/')
 						setSession({
 							isLogin: true,
-							userId: data.userId,
-							userName: data.userName,
-							userEmail: data.userEmail
+							id: data.id,
+							name: data.name,
+							email: data.email
 						})
-						redirect('/')
+
 						setSubmitting(false)
 					} catch (error) {
 						console.error(error)

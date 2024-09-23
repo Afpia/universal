@@ -46,9 +46,9 @@ export const Profile = () => {
 						console.log(data)
 						setSession({
 							isLogin: true,
-							userId: data.userId,
-							userName: values.nickname,
-							userEmail: values.email
+							id: data.id,
+							name: values.name,
+							email: values.email
 						})
 						setSubmitting(false)
 					} catch (error) {
@@ -74,7 +74,7 @@ export const Profile = () => {
 							onChange={handleChange}
 							onBlur={handleBlur}
 							value={values.nickname}
-							placeholder={session.userName}
+							placeholder={session.name}
 							disabled={active || isSubmitting}
 						/>
 						<ErrorMessage name='nickname' component='div' />
@@ -85,7 +85,7 @@ export const Profile = () => {
 							onChange={handleChange}
 							onBlur={handleBlur}
 							value={values.email}
-							placeholder={session.userEmail}
+							placeholder={session.email}
 							disabled={active || isSubmitting}
 						/>
 						<ErrorMessage name='email' component='div' />

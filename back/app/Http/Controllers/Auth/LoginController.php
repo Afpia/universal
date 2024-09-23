@@ -25,9 +25,6 @@ class LoginController extends Controller
 
         $user = Auth::user();
 
-        return response()->json([
-            'message' => 'Успешная авторизация',
-            'user' => $user
-        ]);
+        return response()->json($user);
     }
 }

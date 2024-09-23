@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 
 class PostController extends Controller
 {
-    public function posts(int $lim = 5)
+    public function index(int $lim = 5)
     {
         $posts = Post::with('category', 'user')
             ->orderBy('created_at', 'desc')
@@ -16,14 +17,17 @@ class PostController extends Controller
 
         $posts = $posts->map(function ($post) {
             $post->date = $post->formatDate();
-            ;
+
+            $limit = 50;
+            $post->shortText = mb_substr($post->text, 0, $limit) . '...';
+
             return $post;
         });
 
         return response()->json($posts);
     }
 
-    public function post($id)
+    public function view($id)
     {
         $post = Post::with('category', 'user')->find($id);
 
@@ -32,7 +36,7 @@ class PostController extends Controller
         return response()->json($post);
     }
 
-    public function addPost(Request $request)
+    public function store(Request $request)
     {
         $post = Post::create([
             'title' => $request->title,
@@ -45,5 +49,31 @@ class PostController extends Controller
             'message' => 'succes',
             'user' => $post,
         ]);
+    }
+
+    public function categories()
+    {
+        $categories = Category::withCount([
+            'posts as comments_count' => function ($query) {
+                $query->withCount('comments');
+            }
+        ])
+            ->orderBy('comments_count', 'desc')
+            ->get();
+
+        return response()->json($categories);
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return response()->json(['error' => 'Post not found'], 404);
+        }
+
+        $post->delete();
+
+        return response()->json(['message' => 'Post deleted successfully'], 200);
     }
 }

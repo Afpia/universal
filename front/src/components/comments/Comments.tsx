@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 type Comments = {
 	id: number
-	text: string
+	comment: string
 	likes: number
 	like: boolean
 }
@@ -54,7 +54,7 @@ export const Comments = ({ idPost }: { idPost: string | undefined }) => {
 			{data &&
 				data.map((comment: Comments) => (
 					<div key={comment.id} className='h-fit w-[250px] rounded bg-[#262D33] p-2 outline-none'>
-						<p className='mb-4 min-h-[100px] text-[16px] font-bold text-[#fff]'>{comment.text}</p>
+						<p className='mb-4 min-h-[100px] text-[16px] font-bold text-[#fff]'>{comment.comment}</p>
 						<div className='flex items-center gap-3'>
 							<ThumbsUp
 								fill={clsx(comment.like ? 'white' : '#262D33')}

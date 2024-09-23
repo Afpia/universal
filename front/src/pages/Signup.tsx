@@ -1,6 +1,6 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
-import { Link, redirect } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 import { SignupScheme } from '../utils/helpers/SignupScheme'
 import { useAuth } from '../providers/auth'
 import { useQueryClient } from 'react-query'
@@ -10,6 +10,7 @@ import { AxiosError } from 'axios'
 export const Signup = () => {
 	const queryClient = useQueryClient()
 	const { setSession } = useAuth()
+	const navigate = useNavigate()
 
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
@@ -28,13 +29,14 @@ export const Signup = () => {
 							return response.data
 						})
 						console.log(data)
+						navigate('/')
 						setSession({
 							isLogin: true,
-							userId: data.userId,
-							userName: data.userName,
-							userEmail: data.userEmail
+							id: data.id,
+							name: data.name,
+							email: data.email
 						})
-						redirect('/')
+
 						setSubmitting(false)
 					} catch (error) {
 						console.error(error)

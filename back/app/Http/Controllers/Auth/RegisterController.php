@@ -26,10 +26,7 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user,
-        ]);
+        return response()->json($user);
     }
 }
 
