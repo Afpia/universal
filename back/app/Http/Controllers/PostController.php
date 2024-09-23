@@ -76,4 +76,25 @@ class PostController extends Controller
 
         return response()->json(['message' => 'Post deleted successfully'], 200);
     }
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return response()->json(['error' => 'Post not found'], 404);
+        }
+
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $post->update([
+            'title' => $request->input('title'),
+            'text' => $request->input('text'),
+            'category_id' => $request->input('category_id'),
+        ]);
+
+        return response()->json(['message' => 'Post updated successfully', 'post' => $post], 200);
+    }
 }

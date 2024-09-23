@@ -30,6 +30,7 @@ Route::get('/post/{id}', [PostController::class, 'view']);
 Route::get('/categories', [PostController::class, 'categories']);
 Route::post('/addPost', [PostController::class, 'store']);
 Route::delete('/posts/del/{id}', [PostController::class, 'destroy']);
+Route::put('/posts/upd/{id}', [PostController::class, 'update']);
 
 Route::get('/comments/{post}', [CommentController::class, 'index']);
 Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
