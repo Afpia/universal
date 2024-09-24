@@ -43,7 +43,8 @@ export const Login = () => {
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Login</h1>
 			<Formik
 				initialValues={{ email: '', password: '' }}
-				validationSchema={LoginScheme}
+				validationSche
+				ma={LoginScheme}
 				onSubmit={async (values, { setSubmitting, setFieldError }) => {
 					// onSubmit.mutate(values, { setSubmitting, setFieldError })
 					try {
@@ -58,9 +59,9 @@ export const Login = () => {
 						navigate('/')
 						setSession({
 							isLogin: true,
-							userId: data.userId,
-							userName: data.userName,
-							userEmail: data.userEmail
+							id: data.id,
+							name: data.name,
+							email: data.email
 						})
 						setSubmitting(false)
 					} catch (error) {

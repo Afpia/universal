@@ -4,9 +4,9 @@ import { AuthProviderState } from './types'
 const initialState: AuthProviderState = {
 	session: {
 		isLogin: false,
-		userId: '',
-		userName: '',
-		userEmail: ''
+		id: '',
+		name: '',
+		email: ''
 	},
 	setSession: () => null
 }

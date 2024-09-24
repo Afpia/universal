@@ -20,18 +20,11 @@ class LoginController extends Controller
         ]);
 
         if (!Auth::attempt($credentials)) {
-            return back()
-                ->withInput()
-                ->withErrors([
-                    'email' => 'неверный логин или пароль'
-                ]);
+            abort(512);
         }
 
         $user = Auth::user();
 
-        return response()->json([
-            'message' => 'Успешная авторизация',
-            'user' => $user
-        ]);
+        return response()->json($user);
     }
 }

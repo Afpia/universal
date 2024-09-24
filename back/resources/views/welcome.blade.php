@@ -12,9 +12,8 @@
 </head>
 
 <body>
-    <form action="/api/login" method="post">
-        <input type="email" name="email">
-        <input type="password" name="password">
+    <form action="/api/posts/47/comments" method="post">
+        <input type="text" name="comment">
         <button>отправить</button>
     </form>
 </body>
