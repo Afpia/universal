@@ -11,11 +11,16 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $lim = $request->query('limit', 12);
+        $categoryId = $request->query('categories');
 
-        $posts = Post::with('category', 'user')
-            ->orderBy('created_at', 'desc')
-            ->take($lim)
-            ->get();
+        $query = Post::with('category', 'user')
+            ->orderBy('created_at', 'desc');
+
+        if ($categoryId) {
+            $query->where('category_id', $categoryId);
+        }
+
+        $posts = $query->take($lim)->get();
 
         $posts = $posts->map(function ($post) {
             $post->date = $post->formatDate();

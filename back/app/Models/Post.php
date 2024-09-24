@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -23,7 +24,10 @@ class Post extends Model
 
     public function formatDate()
     {
-        return $this->created_at->format('F j');
+        Carbon::setLocale('ru');
+
+        return $this->created_at->locale('ru')->translatedFormat('F j');
+        ;
     }
 
     public function user()
