@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 type Post = {
 	id: number
 	title: string
-	text: string
+	shortText: string
 	date: string
 }
 
@@ -31,7 +31,7 @@ export const Home = () => {
 						{data.map((post: Post) => (
 							<Link to={`/post/${post.id}`} key={post.id} className='flex h-[170px] w-[260px] flex-col rounded-md bg-white p-6'>
 								<h2 className='pb-[5px] text-[16px] font-bold text-[#262D33]'>{post.title}</h2>
-								<p className='pb-[10px]'>{post.text}</p>
+								<p className='pb-[10px]'>{post.shortText}</p>
 								<p>{post.date}</p>
 							</Link>
 						))}

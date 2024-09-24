@@ -1,8 +1,8 @@
 export type SessionField = {
 	isLogin: boolean
-	userId: string
-	userName: string
-	userEmail: string
+	id: string
+	name: string
+	email: string
 }
 
 export interface AuthProviderState {
