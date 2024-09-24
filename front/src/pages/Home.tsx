@@ -10,9 +10,9 @@ type Post = {
 }
 
 export const Home = () => {
-	const { isLoading, error, data } = useQuery('Posts', () => api.get(`posts/10`).then(res => res.data))
+	const { isLoading, error, data } = useQuery('Posts', () => api.get(`posts?limit=12`).then(res => res.data))
 
-	// posts?limit=10
+	// posts?limit=12
 
 	return (
 		<>

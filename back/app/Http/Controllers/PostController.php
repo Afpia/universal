@@ -8,8 +8,10 @@ use App\Models\Category;
 
 class PostController extends Controller
 {
-    public function index(int $lim = 5)
+    public function index(Request $request)
     {
+        $lim = $request->query('limit', 12);
+
         $posts = Post::with('category', 'user')
             ->orderBy('created_at', 'desc')
             ->take($lim)
