@@ -9,9 +9,9 @@
 		"front": "pnpm --prefix ./front dev",
 		"back": "cd back & php artisan serve",
 		"format": "prettier --config ./front/.prettierrc --write .",
-		"update-deps": "pnpm update-back && pnpm update-front && pnpm i",
-		"update-back": "cd back && composer i",
-		"update-front": "cd front && pnpm i",
+		"update-deps": "pnpm i && pnpm update-back && pnpm update-front ",
+		"update-back": "cd back && composer i && cd ..",
+		"update-front": "cd front && pnpm i && cd ..",
 		"prepare": "husky",
 		"commit": "git add . && git-cz"
 	},
