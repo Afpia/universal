@@ -1,13 +1,13 @@
-import { useQuery, useQueryClient } from 'react-query'
+import { useQuery } from 'react-query'
 import { api } from '../utils/api/instance'
 import { useParams } from 'react-router-dom'
 import { Formik } from 'formik'
 import { useAuth } from '../providers/auth'
 import { Comments } from '../components/comments/Comments'
+import { postCommentId } from '../utils/api/requests/comments/id'
 
 export const Post = () => {
-	const id = useParams().id
-	const queryClient = useQueryClient()
+	const id = useParams().id!
 	const { session } = useAuth()
 
 	const { isLoading, error, data } = useQuery('Post', () => api.get(`post/${id}`).then(res => res.data))
@@ -35,13 +35,12 @@ export const Post = () => {
 					<>
 						<Formik
 							initialValues={{ comment: '' }}
-							onSubmit={async (values, { setSubmitting }) => {
+							onSubmit={(values, { setSubmitting }) => {
 								try {
-									const data = await queryClient.fetchQuery('AddComment', async () => {
-										const response = await api.post(`/posts/${id}/comments`, {
-											comment: values.comment
-										})
-										return response.data
+									const data = postCommentId({
+										params: { id },
+										data: { comment: values.comment, id: session.id },
+										config: { headers: { 'Content-Type': 'application/json' } }
 									})
 									console.log(data)
 									setSubmitting(false)

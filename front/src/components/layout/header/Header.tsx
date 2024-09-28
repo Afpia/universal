@@ -100,7 +100,7 @@ export const Header = () => {
 				</div>
 			</div>
 			<div className='h-[55px] bg-[#262D33]'>
-				<div className='wrapper flex h-[55px] items-center justify-between font-bold text-white'>
+				{/* <div className='wrapper flex h-[55px] items-center justify-between font-bold text-white'>
 					<p>NEWS</p>
 					<p>OPINION</p>
 					<p>SCIENCE</p>
@@ -111,7 +111,7 @@ export const Header = () => {
 					<p>PEOPLE</p>
 					<p>HEALTH</p>
 					<p>EDUCATION</p>
-				</div>
+				</div> */}
 			</div>
 		</header>
 	)

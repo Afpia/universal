@@ -1,6 +1,6 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
-import { Link, Navigate, redirect, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useQueryClient } from 'react-query'
 import { useAuth } from '../providers/auth'
 import { SessionField } from '../providers/auth/types'
@@ -12,6 +12,32 @@ export const Login = () => {
 	const { setSession } = useAuth()
 	const navigate = useNavigate()
 
+	// const login = async (values) =>
+	// 	await api.post('/login', {
+	// 		email: values.email,
+	// 		password: values.password
+	// 	})
+
+	// const onSubmit = useMutation<SessionField, AxiosError>(login, {
+	// 	onSuccess: data => {
+	// 		navigate('/')
+	// 		setSession({
+	// 			isLogin: true,
+	// 			userId: data.userId,
+	// 			userName: data.userName,
+	// 			userEmail: data.userEmail
+	// 		})
+	// 	},
+	// 	onError: (error, _, { setFieldError }) => {
+	// 		if (error.status === 512) {
+	// 			setFieldError('password', 'Invalid login or password')
+	// 		}
+	// 	},
+	// 	onSettled: (_, __, { setSubmitting }) => {
+	// 		setSubmitting(false)
+	// 	}
+	// })
+
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Login</h1>
@@ -20,6 +46,7 @@ export const Login = () => {
 				validationSche
 				ma={LoginScheme}
 				onSubmit={async (values, { setSubmitting, setFieldError }) => {
+					// onSubmit.mutate(values, { setSubmitting, setFieldError })
 					try {
 						const data = await queryClient.fetchQuery<SessionField>('Login', async () => {
 							const response = await api.post('/login', {
@@ -36,7 +63,6 @@ export const Login = () => {
 							name: data.name,
 							email: data.email
 						})
-
 						setSubmitting(false)
 					} catch (error) {
 						console.error(error)
