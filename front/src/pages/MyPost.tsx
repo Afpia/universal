@@ -31,6 +31,13 @@ export const MyPost = () => {
 	// 		text: 'text',
 	// 		date: 'date',
 	// 		category: 'category'
+	// 	},
+	// 	{
+	// 		id: 1,
+	// 		title: 'title',
+	// 		text: 'text',
+	// 		date: 'date',
+	// 		category: 'category'
 	// 	}
 	// ]
 
@@ -105,67 +112,69 @@ export const MyPost = () => {
 			) : (
 				''
 			)}
-			{data &&
-				data.map((post: Post) => (
-					<div
-						className='relative mt-20 flex h-full w-[700px] flex-col items-center justify-center rounded bg-[#262D33] p-2'
-						key={post.id}
-					>
-						<Formik
-							initialValues={{ title: post.title, text: post.text }}
-							onSubmit={async (values, { setSubmitting }) => {
-								try {
-									const data = await updateMyPost({
-										params: { id: post.id },
-										data: { title: values.title, text: values.text, user_id: session.id }
-									}).then(res => {
-										setUpdate(prev => !prev)
-										setChange(false)
-										return res.data
-									})
-									console.log(data)
-									setSubmitting(false)
-								} catch (error) {
-									console.error(error)
-									setSubmitting(false)
-								}
-							}}
+			<div className='mt-20 flex flex-col gap-4'>
+				{data &&
+					data.map((post: Post) => (
+						<div
+							className='relative flex h-full w-[700px] flex-col items-center justify-center rounded bg-[#262D33] p-2'
+							key={post.id}
 						>
-							{({ values, handleChange, handleSubmit, isSubmitting }) => (
-								<form onSubmit={handleSubmit} className='flex w-full flex-col items-center'>
-									<input
-										type='text'
-										name='title'
-										className='mb-6 w-[250px] bg-transparent text-center font-bold text-white'
-										onChange={handleChange}
-										disabled={isSubmitting || !change}
-										value={values.title}
-									/>
-									<textarea
-										onChange={handleChange}
-										disabled={isSubmitting || !change}
-										value={values.text}
-										name='text'
-										className='mb-4 max-h-[500px] min-h-[200px] w-full resize-none overflow-y-auto bg-transparent text-white'
-									></textarea>
-									<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>Date create: {post.date}</p>
-									<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>{post.category}</p>
-									<Trash color='white' onClick={() => deletePost(post.id)} className='absolute right-2 top-2 cursor-pointer' />
-									{change && (
-										<button type='submit' disabled={isSubmitting} className='absolute right-20 top-2 cursor-pointer'>
-											<Check color='white' />
-										</button>
-									)}
-									{change ? (
-										<PenOff color='white' onClick={() => setChange(false)} className='absolute right-11 top-2 cursor-pointer' />
-									) : (
-										<Pen color='white' onClick={() => setChange(true)} className='absolute right-11 top-2 cursor-pointer' />
-									)}
-								</form>
-							)}
-						</Formik>
-					</div>
-				))}
+							<Formik
+								initialValues={{ title: post.title, text: post.text }}
+								onSubmit={async (values, { setSubmitting }) => {
+									try {
+										const data = await updateMyPost({
+											params: { id: post.id },
+											data: { title: values.title, text: values.text, user_id: session.id }
+										}).then(res => {
+											setUpdate(prev => !prev)
+											setChange(false)
+											return res.data
+										})
+										console.log(data)
+										setSubmitting(false)
+									} catch (error) {
+										console.error(error)
+										setSubmitting(false)
+									}
+								}}
+							>
+								{({ values, handleChange, handleSubmit, isSubmitting }) => (
+									<form onSubmit={handleSubmit} className='flex w-full flex-col items-center'>
+										<input
+											type='text'
+											name='title'
+											className='mb-6 w-[250px] bg-transparent text-center font-bold text-white'
+											onChange={handleChange}
+											disabled={isSubmitting || !change}
+											value={values.title}
+										/>
+										<textarea
+											onChange={handleChange}
+											disabled={isSubmitting || !change}
+											value={values.text}
+											name='text'
+											className='mb-4 max-h-[500px] min-h-[200px] w-full resize-none overflow-y-auto bg-transparent text-white'
+										></textarea>
+										<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>Date create: {post.date}</p>
+										<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>{post.category}</p>
+										<Trash color='white' onClick={() => deletePost(post.id)} className='absolute right-2 top-2 cursor-pointer' />
+										{change && (
+											<button type='submit' disabled={isSubmitting} className='absolute right-20 top-2 cursor-pointer'>
+												<Check color='white' />
+											</button>
+										)}
+										{change ? (
+											<PenOff color='white' onClick={() => setChange(false)} className='absolute right-11 top-2 cursor-pointer' />
+										) : (
+											<Pen color='white' onClick={() => setChange(true)} className='absolute right-11 top-2 cursor-pointer' />
+										)}
+									</form>
+								)}
+							</Formik>
+						</div>
+					))}
+			</div>
 		</div>
 	)
 }
