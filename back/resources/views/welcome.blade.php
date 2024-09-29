@@ -14,6 +14,7 @@
 <body>
     <form action="/api/posts/47/comments" method="post">
         <input type="text" name="comment">
+        <input type="text" name="id">
         <button>отправить</button>
     </form>
 </body>
