@@ -30,6 +30,11 @@ class Comment extends Model
         return $this->likes()->where('user_id', $userId)->exists();
     }
 
+    public function getLikeCountAttribute()
+    {
+        return $this->likes()->count();
+    }
+
     public function post()
     {
         return $this->belongsTo(Post::class);

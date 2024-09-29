@@ -11,7 +11,18 @@ class CommentController extends Controller
 {
     public function index(Post $post)
     {
-        $comments = $post->comments;
+
+
+        $comments = $post->comments->map(function ($comment) {
+            return [
+                'id' => $comment->id,
+                'text' => $comment->text,
+                'user_id' => $comment->user_id,
+                'created_at' => $comment->created_at,
+                'updated_at' => $comment->updated_at,
+                'like_count' => $comment->like_count,
+            ];
+        });
 
         return response()->json($comments);
     }
@@ -19,17 +30,18 @@ class CommentController extends Controller
     public function store(Request $request, Post $post)
     {
         $comment = Comment::create([
-            'content' => $request->comment,
-            'user_id' => $request->user_id,
-            'post_id' => $post,
+            'comment' => $request->comment,
+            'user_id' => (int) $request->id,
+            'post_id' => $post->id,
         ]);
-        return response()->json(Auth::check());
+
+        return response()->json($comment);
     }
 
     public function like(Request $request, Comment $comment)
     {
         $like = $comment->likes()->firstOrCreate([
-            'user_id' => auth()->id(),
+            'user_id' => $request->user_id,
         ]);
 
         return response()->json($like, 201);

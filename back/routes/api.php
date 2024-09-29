@@ -34,6 +34,9 @@ Route::put('/posts/upd/{id}', [PostController::class, 'update']);
 
 Route::get('/comments/{post}', [CommentController::class, 'index']);
 Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
+Route::post('/comments/{comment}/like', [CommentController::class, 'like']);
+
+
 
 
 

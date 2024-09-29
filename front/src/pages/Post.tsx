@@ -5,10 +5,12 @@ import { Formik } from 'formik'
 import { useAuth } from '../providers/auth'
 import { Comments } from '../components/comments/Comments'
 import { postCommentId } from '../utils/api/requests/comments/id'
+import { useState } from 'react'
 
 export const Post = () => {
 	const id = useParams().id!
 	const { session } = useAuth()
+	const [dataAdd, setDataAdd] = useState()
 
 	const { isLoading, error, data } = useQuery('Post', () => api.get(`post/${id}`).then(res => res.data))
 
@@ -35,14 +37,15 @@ export const Post = () => {
 					<>
 						<Formik
 							initialValues={{ comment: '' }}
-							onSubmit={(values, { setSubmitting }) => {
+							onSubmit={async (values, { setSubmitting }) => {
 								try {
-									const data = postCommentId({
+									const data = await postCommentId({
 										params: { id },
 										data: { comment: values.comment, id: session.id },
 										config: { headers: { 'Content-Type': 'application/json' } }
 									})
 									console.log(data)
+									setDataAdd(data.data)
 									setSubmitting(false)
 								} catch (error) {
 									console.error(error)
@@ -71,7 +74,7 @@ export const Post = () => {
 							)}
 						</Formik>
 						<div className='flex flex-col gap-2'>
-							<Comments idPost={id} />
+							<Comments dataAdd={dataAdd} idPost={id} />
 						</div>
 					</>
 				)}
