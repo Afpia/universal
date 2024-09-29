@@ -14,21 +14,6 @@ export const Comments = ({ idPost }: { idPost: string | undefined }) => {
 	const queryClient = useQueryClient()
 	const { isLoading, error, data } = useQuery<Comments[]>('Comments', () => api.get(`comments/${idPost}`).then(res => res.data))
 
-	// const data = [
-	// 	{
-	// 		id: 1,
-	// 		text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quae optio tenetur suscipit esse, alias quidem corporis cupiditate adipisci ex architecto tempora voluptates, voluptate totam eligendi repellat inventore provident. Dolorum?',
-	// 		likes: 3,
-	// 		like: false
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quae optio tenetur suscipit esse, alias quidem corporis cupiditate adipisci ex architecto tempora voluptates, voluptate totam eligendi repellat inventore provident. Dolorum?',
-	// 		likes: 3,
-	// 		like: true
-	// 	}
-	// ]
-
 	const addLike = (id: number) => {
 		try {
 			queryClient.fetchQuery('AddLike', async () => {

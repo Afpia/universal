@@ -7,6 +7,7 @@ import { api } from '../utils/api/instance'
 import { AxiosError } from 'axios'
 import { SessionField } from '../providers/auth/types'
 import { SignupScheme } from '../utils/helpers/SignupScheme'
+import { Link } from 'react-router-dom'
 
 export const Profile = () => {
 	const { session, setSession } = useAuth()
@@ -112,6 +113,9 @@ export const Profile = () => {
 					</form>
 				)}
 			</Formik>
+			<Link className='mt-6 text-[15px]' to={'mypost'}>
+				Создать пост
+			</Link>
 		</div>
 	)
 }

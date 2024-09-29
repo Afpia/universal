@@ -10,7 +10,7 @@ export const Post = () => {
 	const id = useParams().id!
 	const { session } = useAuth()
 
-	const { isLoading, error, data } = useQuery('Post', () => api.get(`post/${id}`).then(res => res.data))
+	const { isLoading, error, data } = useQuery(['Post', id], () => api.get(`post/${id}`).then(res => res.data))
 
 	return (
 		<>
@@ -35,12 +35,11 @@ export const Post = () => {
 					<>
 						<Formik
 							initialValues={{ comment: '' }}
-							onSubmit={(values, { setSubmitting }) => {
+							onSubmit={async (values, { setSubmitting }) => {
 								try {
-									const data = postCommentId({
+									const data = await postCommentId({
 										params: { id },
-										data: { comment: values.comment, id: session.id },
-										config: { headers: { 'Content-Type': 'application/json' } }
+										data: { comment: values.comment, id: session.id }
 									})
 									console.log(data)
 									setSubmitting(false)
@@ -53,7 +52,7 @@ export const Post = () => {
 							{({ values, handleChange, handleSubmit, isSubmitting }) => (
 								<form onSubmit={handleSubmit} className='flex flex-col gap-2'>
 									<textarea
-										className='min-h-[100px] w-[250px] overflow-y-auto rounded bg-[#262D33] p-2 text-[#fff] outline-none'
+										className='max-h-[300px] min-h-[100px] w-[250px] overflow-y-auto rounded bg-[#262D33] p-2 text-[#fff] outline-none'
 										name='comment'
 										onChange={handleChange}
 										disabled={isSubmitting}
