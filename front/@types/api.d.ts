@@ -28,6 +28,12 @@ interface Post {
 	title: string
 	text: string
 	date: string
+	category: string
+}
+
+interface Category {
+	id: number
+	title: string
 }
 
 type PostsResponse = ShortPost[]

@@ -8,6 +8,7 @@ interface AddPost {
 	user_id: string
 	title: string
 	text: string
+	category?: string
 }
 
 export type AddMyPostConfig = AxiosRequestConfig<undefined, AddPost>
