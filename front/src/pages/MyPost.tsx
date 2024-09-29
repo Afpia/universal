@@ -38,9 +38,10 @@ export const MyPost = () => {
 		<div className='wrapper flex justify-between'>
 			<div className='mt-20'>
 				<Formik
-					initialValues={{ title: '', text: '', category: '' }}
+					initialValues={{ title: '', text: '', category: '1' }}
 					onSubmit={async (values, { setSubmitting }) => {
 						try {
+							console.log(values)
 							const data = await postMyPost({
 								data: { title: values.title, text: values.text, user_id: session.id, category: values.category }
 							}).then(res => {
@@ -81,7 +82,7 @@ export const MyPost = () => {
 								onChange={handleChange}
 							>
 								{dataCategory?.map((category: Category) => (
-									<option key={category.id} value={category.title}>
+									<option key={category.id} value={category.id}>
 										{category.title}
 									</option>
 								))}
