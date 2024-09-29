@@ -51,7 +51,7 @@ class PostController extends Controller
             'title' => $request->title,
             'text' => $request->text,
             'category_id' => $request->category,
-            'user_id' => $request->user,
+            'user_id' => $request->user_id,
         ]);
 
         return response()->json([
