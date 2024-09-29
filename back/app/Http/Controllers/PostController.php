@@ -11,13 +11,15 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $lim = $request->query('limit', 12);
-        $categoryId = $request->query('categories');
+        $categoryName = $request->query('categories');
 
         $query = Post::with('category', 'user')
             ->orderBy('created_at', 'desc');
 
-        if ($categoryId) {
-            $query->where('category_id', $categoryId);
+        if ($categoryName) {
+            $query->whereHas('category', function ($q) use ($categoryName) {
+                $q->where('title', $categoryName);
+            });
         }
 
         $posts = $query->take($lim)->get();
