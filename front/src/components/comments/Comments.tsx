@@ -4,14 +4,7 @@ import { ThumbsUp } from 'lucide-react'
 import clsx from 'clsx'
 import { useAuth } from '../../providers/auth'
 
-type Comments = {
-	id: number
-	comment: string
-	likes: number
-	like: boolean
-}
-
-export const Comments = ({ idPost, dataAdd }: { idPost: string | undefined }) => {
+export const Comments = ({ idPost, dataAdd }: { idPost: string | undefined; dataAdd: Comments }) => {
 	const queryClient = useQueryClient()
 	const { session } = useAuth()
 

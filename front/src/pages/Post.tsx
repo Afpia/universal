@@ -10,7 +10,7 @@ import { useState } from 'react'
 export const Post = () => {
 	const id = useParams().id!
 	const { session } = useAuth()
-	const [dataAdd, setDataAdd] = useState()
+	const [dataAdd, setDataAdd] = useState({} as Comments)
 
 	const { isLoading, error, data } = useQuery(['Post', id], () => api.get(`post/${id}`).then(res => res.data))
 
@@ -42,9 +42,9 @@ export const Post = () => {
 									const data = await postCommentId({
 										params: { id },
 										data: { comment: values.comment, id: session.id }
-									})
+									}).then(res => res.data)
 									console.log(data)
-									setDataAdd(data.data)
+									setDataAdd(data as Comments)
 									setSubmitting(false)
 								} catch (error) {
 									console.error(error)

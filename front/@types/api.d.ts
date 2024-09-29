@@ -16,6 +16,13 @@ interface ShortPost {
 	date: string
 }
 
+interface Comments {
+	id: number
+	comment: string
+	likes: number
+	like: boolean
+}
+
 interface Post {
 	id: number
 	title: string
