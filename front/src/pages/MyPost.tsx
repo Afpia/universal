@@ -13,6 +13,8 @@ export const MyPost = () => {
 
 	const { isLoading, error, data } = useQuery(['MyPost', update], () => api.get(`mypost/${session.id}`).then(res => res.data))
 
+	const { data: dataCategory } = useQuery('Categories', () => api.get(`/categories`).then(res => res.data))
+
 	const deletePost = async (id: number) => {
 		try {
 			await deleteMyPost({ params: { id } })
@@ -22,15 +24,25 @@ export const MyPost = () => {
 		}
 	}
 
+	// const data = [
+	// 	{
+	// 		id: 1,
+	// 		title: 'title',
+	// 		text: 'text',
+	// 		date: 'date',
+	// 		category: 'category'
+	// 	}
+	// ]
+
 	return (
 		<div className='wrapper flex justify-between'>
 			<div className='mt-20'>
 				<Formik
-					initialValues={{ title: '', text: '' }}
+					initialValues={{ title: '', text: '', category: '' }}
 					onSubmit={async (values, { setSubmitting }) => {
 						try {
 							const data = await postMyPost({
-								data: { title: values.title, text: values.text, user_id: session.id }
+								data: { title: values.title, text: values.text, user_id: session.id, category: values.category }
 							}).then(res => {
 								setUpdate(prev => !prev)
 								return res.data
@@ -62,6 +74,18 @@ export const MyPost = () => {
 								value={values.text}
 								placeholder='Write your text'
 							></textarea>
+							<select
+								className='h-[30px] w-[250px] rounded bg-[#262D33] text-white'
+								name='category'
+								disabled={isSubmitting}
+								onChange={handleChange}
+							>
+								{dataCategory?.map((category: Category) => (
+									<option key={category.id} value={category.title}>
+										{category.title}
+									</option>
+								))}
+							</select>
 							<button
 								disabled={isSubmitting}
 								type='submit'
@@ -82,7 +106,10 @@ export const MyPost = () => {
 			)}
 			{data &&
 				data.map((post: Post) => (
-					<div className='relative mt-20 flex h-full w-[700px] flex-col items-center justify-center rounded bg-[#262D33] p-2'>
+					<div
+						className='relative mt-20 flex h-full w-[700px] flex-col items-center justify-center rounded bg-[#262D33] p-2'
+						key={post.id}
+					>
 						<Formik
 							initialValues={{ title: post.title, text: post.text }}
 							onSubmit={async (values, { setSubmitting }) => {
@@ -121,6 +148,7 @@ export const MyPost = () => {
 										className='mb-4 max-h-[500px] min-h-[200px] w-full resize-none overflow-y-auto bg-transparent text-white'
 									></textarea>
 									<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>Date create: {post.date}</p>
+									<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>{post.category}</p>
 									<Trash color='white' onClick={() => deletePost(post.id)} className='absolute right-2 top-2 cursor-pointer' />
 									{change && (
 										<button type='submit' disabled={isSubmitting} className='absolute right-20 top-2 cursor-pointer'>
