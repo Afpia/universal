@@ -17,11 +17,14 @@ export const Home = () => {
 
 	const url = categories ? `posts?limit=${limit}&categories=${categories}` : `posts?limit=${limit}`
 
-	const { isLoading, error, data } = useQuery('Posts', () => api.get(url).then(res => res.data))
+	const { isLoading, error, data } = useQuery(['Posts', limit, categories], () => api.get(url).then(res => res.data))
 
 	const showMore = () => {
 		setLimit(prevLimit => prevLimit + 10)
 	}
+
+	console.log(data)
+	console.log(limit)
 
 	// const data = [
 	// 	{

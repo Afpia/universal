@@ -8,12 +8,21 @@ use App\Models\Category;
 
 class PostController extends Controller
 {
-    public function index(int $lim = 5)
+    public function index(Request $request)
     {
-        $posts = Post::with('category', 'user')
-            ->orderBy('created_at', 'desc')
-            ->take($lim)
-            ->get();
+        $lim = $request->query('limit', 12);
+        $categoryName = $request->query('categories');
+
+        $query = Post::with('category', 'user')
+            ->orderBy('created_at', 'desc');
+
+        if ($categoryName) {
+            $query->whereHas('category', function ($q) use ($categoryName) {
+                $q->where('title', $categoryName);
+            });
+        }
+
+        $posts = $query->take($lim)->get();
 
         $posts = $posts->map(function ($post) {
             $post->date = $post->formatDate();
