@@ -11,16 +11,12 @@ class CommentController extends Controller
 {
     public function index(Post $post)
     {
-
-
         $comments = $post->comments->map(function ($comment) {
             return [
                 'id' => $comment->id,
-                'text' => $comment->text,
-                'user_id' => $comment->user_id,
-                'created_at' => $comment->created_at,
-                'updated_at' => $comment->updated_at,
-                'like_count' => $comment->like_count,
+                'comment' => $comment->comment,
+                'user' => $comment->getUser(),
+                'likes' => $comment->like_count,
             ];
         });
 

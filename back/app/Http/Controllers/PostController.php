@@ -100,19 +100,19 @@ class PostController extends Controller
         ]);
 
         $post->update([
-            'title' => $request->input('title'),
-            'text' => $request->input('text'),
-            'category_id' => $request->input('category_id'),
+            'title' => $request->title,
+            'text' => $request->text,
+            'category_id' => $request->category_id,
         ]);
 
         return response()->json(['message' => 'Post updated successfully', 'post' => $post], 200);
     }
 
-    public function userPosts($userId)
+    public function userPosts(int $userId)
     {
-        $user_id = (int) $userId;
+        $user = User::find($userId);
 
-        $posts = Post::with('category')->where('user_id', $user_id)->get();
+        $posts = $user->posts;
 
         $posts = $posts->map(function ($post) {
             $post->date = $post->formatDate();

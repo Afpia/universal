@@ -74,7 +74,7 @@ export const MyPost = () => {
 								onChange={handleChange}
 								disabled={isSubmitting}
 								value={values.title}
-								placeholder='Title'
+								placeholder='Название'
 							/>
 							<textarea
 								className='max-h-[500px] min-h-[100px] w-[250px] overflow-y-auto rounded bg-[#262D33] p-2 text-[#fff] outline-none'
@@ -82,7 +82,7 @@ export const MyPost = () => {
 								onChange={handleChange}
 								disabled={isSubmitting}
 								value={values.text}
-								placeholder='Write your text'
+								placeholder='Напишите текст'
 							></textarea>
 							<select
 								className='h-[30px] w-[250px] rounded bg-[#262D33] text-white'
@@ -101,7 +101,7 @@ export const MyPost = () => {
 								type='submit'
 								className='w-[120px] rounded bg-[#4592FF] px-4 py-3 text-white disabled:bg-[#3B3B3B4D]'
 							>
-								Create post
+								Создать пост
 							</button>
 						</form>
 					)}
@@ -158,7 +158,7 @@ export const MyPost = () => {
 											name='text'
 											className='mb-4 max-h-[500px] min-h-[200px] w-full resize-none overflow-y-auto bg-transparent text-white'
 										></textarea>
-										<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>Date create: {post.date}</p>
+										<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>Дата создания: {post.date}</p>
 										<p className='flex justify-end font-roboto text-[15px] font-bold text-white'>{post.category}</p>
 										<Trash color='white' onClick={() => deletePost(post.id)} className='absolute right-2 top-2 cursor-pointer' />
 										{change && (

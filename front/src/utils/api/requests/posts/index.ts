@@ -17,6 +17,6 @@ export type DeleteMyPostConfig = AxiosRequestConfig<{ id: number }>
 
 export const postMyPost = async ({ data, config }: AddMyPostConfig) => api.post(`/addPost`, data, config)
 
-export const deleteMyPost = async ({ params }: DeleteMyPostConfig) => api.delete(`/posts/upd/${params.id}`)
+export const deleteMyPost = async ({ params }: DeleteMyPostConfig) => api.delete(`/posts/del/${params.id}`)
 
-export const updateMyPost = async ({ params, data }: UpdateMyPostConfig) => api.put(`/posts/del/${params.id}`, data)
+export const updateMyPost = async ({ params, data }: UpdateMyPostConfig) => api.put(`/posts/upd/${params.id}`, data)

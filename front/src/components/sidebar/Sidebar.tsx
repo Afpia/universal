@@ -28,7 +28,7 @@ export const Sidebar = ({ categories, setCategories }: SidebarProps) => {
 				{data && (
 					<>
 						<p className={clsx('cursor-pointer', { 'text-[#4592FF]': categories === null })} onClick={() => setCategories(null)}>
-							All
+							Все
 						</p>
 						{data.map((category: Category) => (
 							<p
