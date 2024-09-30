@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -105,5 +106,20 @@ class PostController extends Controller
         ]);
 
         return response()->json(['message' => 'Post updated successfully', 'post' => $post], 200);
+    }
+
+    public function userPosts($userId)
+    {
+        $user_id = (int) $userId;
+
+        $posts = Post::with('category')->where('user_id', $user_id)->get();
+
+        $posts = $posts->map(function ($post) {
+            $post->date = $post->formatDate();
+
+            return $post;
+        });
+
+        return response()->json($posts);
     }
 }

@@ -24,6 +24,8 @@ export const MyPost = () => {
 		}
 	}
 
+	console.log(data)
+
 	// const data = [
 	// 	{
 	// 		id: 1,
