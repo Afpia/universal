@@ -29,7 +29,7 @@ export const Post = () => {
 				<div className='mt-20 flex flex-col items-center justify-center'>
 					<h2 className='mb-6 text-center text-[40px] font-bold'>{data?.title}</h2>
 					<p className='mb-4 w-[800px]'>{data?.text}</p>
-					<p className='mb-[50px] flex w-[800px] justify-end font-roboto text-[15px] font-bold'>Date create: {data?.date}</p>
+					<p className='mb-[50px] flex w-[800px] justify-end font-roboto text-[15px] font-bold'>Дата создания: {data?.date}</p>
 				</div>
 			)}
 			<div className='wrapper flex w-[830px] justify-between'>
@@ -60,14 +60,14 @@ export const Post = () => {
 										onChange={handleChange}
 										disabled={isSubmitting}
 										value={values.comment}
-										placeholder='Write your comment'
+										placeholder='Напишите свой комментарий'
 									></textarea>
 									<button
 										disabled={isSubmitting}
 										type='submit'
 										className='w-[120px] rounded bg-[#4592FF] px-4 py-3 text-white disabled:bg-[#3B3B3B4D]'
 									>
-										Send comment
+										Отправить
 									</button>
 								</form>
 							)}

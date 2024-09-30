@@ -46,7 +46,7 @@ export const Home = () => {
 								</div>
 								<div className='w-full text-center'>
 									<button onClick={showMore} className='w-[120px] rounded-3xl bg-[#4592FF] px-4 py-3 text-white'>
-										Show more
+										Больше
 									</button>
 								</div>
 							</div>

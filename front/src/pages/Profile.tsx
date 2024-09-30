@@ -25,7 +25,7 @@ export const Profile = () => {
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<div className='mb-6 flex items-baseline gap-2'>
-				<h1 className='text-center text-[40px] font-bold'>Profile</h1>
+				<h1 className='text-center text-[40px] font-bold'>Профиль</h1>
 				<p className={clsx('w-[90px] cursor-pointer', { 'text-[#4592FF]': active })} onClick={handleCancel}>
 					{active ? 'Изменить' : 'Отменить'}
 				</p>
