@@ -127,7 +127,7 @@ export const MyPost = () => {
 									try {
 										const data = await updateMyPost({
 											params: { id: post.id },
-											data: { title: values.title, text: values.text, user_id: session.id }
+											data: { title: values.title, text: values.text, category: post.category, user_id: session.id }
 										}).then(res => {
 											setUpdate(prev => !prev)
 											setChange(false)

@@ -95,14 +95,16 @@ class PostController extends Controller
             return response()->json(['error' => 'Post not found'], 404);
         }
 
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        $category = Category::where('title', $request->category)->first();
+
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
 
         $post->update([
             'title' => $request->title,
             'text' => $request->text,
-            'category_id' => $request->category_id,
+            'category_id' => $category->id,
         ]);
 
         return response()->json(['message' => 'Post updated successfully', 'post' => $post], 200);
@@ -112,13 +114,16 @@ class PostController extends Controller
     {
         $user = User::find($userId);
 
-        $posts = $user->posts;
-
-        $posts = $posts->map(function ($post) {
-            $post->date = $post->formatDate();
-
-            return $post;
+        $posts = $user->posts->map(function ($post) {
+            return [
+                'id' => $post->id,
+                'title' => $post->title,
+                'text' => $post->text,
+                'date' => $post->formatDate(),
+                'category' => $post->category->title,
+            ];
         });
+        ;
 
         return response()->json($posts);
     }
