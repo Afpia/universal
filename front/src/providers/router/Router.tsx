@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { ROUTES } from '../../utils/constants/ROUTES'
 import { Layout } from '../../components/layout/Layout'
-import { Home, Login, NotFound, Post, Profile, Signup } from '../../pages'
+import { Home, Login, MyPost, NotFound, Post, Profile, Signup } from '../../pages'
 import { PrivateRouter } from './PrivateRouter'
 
 const router = createBrowserRouter([
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
 					{
 						path: ROUTES.PROFILE,
 						element: <Profile />
+					},
+					{
+						path: ROUTES.MYPOST,
+						element: <MyPost />
 					}
 				]
 			}
