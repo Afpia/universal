@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 
 class PostController extends Controller
 {
-    public function index(int $lim = 5)
+    public function index(Request $request)
     {
-        $posts = Post::with('category', 'user')
-            ->orderBy('created_at', 'desc')
-            ->take($lim)
-            ->get();
+        $lim = $request->query('limit', 12);
+        $categoryName = $request->query('categories');
+
+        $query = Post::with('category', 'user')
+            ->orderBy('created_at', 'desc');
+
+        if ($categoryName) {
+            $query->whereHas('category', function ($q) use ($categoryName) {
+                $q->where('title', $categoryName);
+            });
+        }
+
+        $posts = $query->take($lim)->get();
 
         $posts = $posts->map(function ($post) {
             $post->date = $post->formatDate();
@@ -42,7 +52,7 @@ class PostController extends Controller
             'title' => $request->title,
             'text' => $request->text,
             'category_id' => $request->category,
-            'user_id' => $request->user,
+            'user_id' => $request->user_id,
         ]);
 
         return response()->json([
@@ -85,16 +95,36 @@ class PostController extends Controller
             return response()->json(['error' => 'Post not found'], 404);
         }
 
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        $category = Category::where('title', $request->category)->first();
+
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
 
         $post->update([
-            'title' => $request->input('title'),
-            'text' => $request->input('text'),
-            'category_id' => $request->input('category_id'),
+            'title' => $request->title,
+            'text' => $request->text,
+            'category_id' => $category->id,
         ]);
 
         return response()->json(['message' => 'Post updated successfully', 'post' => $post], 200);
+    }
+
+    public function userPosts(int $userId)
+    {
+        $user = User::find($userId);
+
+        $posts = $user->posts->map(function ($post) {
+            return [
+                'id' => $post->id,
+                'title' => $post->title,
+                'text' => $post->text,
+                'date' => $post->formatDate(),
+                'category' => $post->category->title,
+            ];
+        });
+        ;
+
+        return response()->json($posts);
     }
 }

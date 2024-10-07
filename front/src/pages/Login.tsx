@@ -40,7 +40,7 @@ export const Login = () => {
 
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
-			<h1 className='mb-6 text-center text-[40px] font-bold'>Login</h1>
+			<h1 className='mb-6 text-center text-[40px] font-bold'>Войти</h1>
 			<Formik
 				initialValues={{ email: '', password: '' }}
 				validationSche
@@ -68,7 +68,7 @@ export const Login = () => {
 						console.error(error)
 						if (error instanceof AxiosError) {
 							if (error.status === 512) {
-								setFieldError('password', 'Invalid login or password')
+								setFieldError('password', 'неверный логин или пароль')
 							}
 						}
 						setSubmitting(false)
@@ -95,7 +95,7 @@ export const Login = () => {
 							onBlur={handleBlur}
 							value={values.password}
 							disabled={isSubmitting}
-							placeholder='Password'
+							placeholder='Пароль'
 							className='h-10 rounded-md bg-[#262D33] px-2 text-white outline-none'
 						/>
 						<ErrorMessage name='password' component='div' />
@@ -104,12 +104,12 @@ export const Login = () => {
 							disabled={isSubmitting}
 							className='mb-6 rounded-lg bg-[#4592FF] px-6 py-2 text-[14px] font-medium text-white disabled:bg-[#3B3B3B4D]'
 						>
-							Login
+							Войти
 						</button>
 					</form>
 				)}
 			</Formik>
-			<Link to={'/signup'}>Signup</Link>
+			<Link to={'/signup'}>Зарегестрироватся</Link>
 		</div>
 	)
 }

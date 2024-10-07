@@ -14,7 +14,7 @@ export const Signup = () => {
 
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
-			<h1 className='mb-6 text-center text-[40px] font-bold'>Signup</h1>
+			<h1 className='mb-6 text-center text-[40px] font-bold'>Регистрация</h1>
 			<Formik
 				initialValues={{ nickname: '', email: '', password: '' }}
 				validationSchema={SignupScheme}
@@ -42,7 +42,7 @@ export const Signup = () => {
 						console.error(error)
 						if (error instanceof AxiosError) {
 							if (error.status === 513) {
-								setFieldError('email', 'This login is already taken')
+								setFieldError('email', 'Такой email уже используется')
 							}
 						}
 						setSubmitting(false)
@@ -57,7 +57,7 @@ export const Signup = () => {
 							onChange={handleChange}
 							onBlur={handleBlur}
 							value={values.nickname}
-							placeholder='Nickname'
+							placeholder='Имя'
 							disabled={isSubmitting}
 							className='h-10 rounded-md bg-[#262D33] px-2 text-white outline-none'
 						/>
@@ -80,7 +80,7 @@ export const Signup = () => {
 							onBlur={handleBlur}
 							value={values.password}
 							disabled={isSubmitting}
-							placeholder='Password'
+							placeholder='Пароль'
 							className='h-10 rounded-md bg-[#262D33] px-2 text-white outline-none'
 						/>
 						<ErrorMessage name='password' component='div' />
@@ -89,12 +89,12 @@ export const Signup = () => {
 							disabled={isSubmitting}
 							className='mb-6 rounded-lg bg-[#4592FF] px-6 py-2 text-[14px] font-medium text-white disabled:bg-[#3B3B3B4D]'
 						>
-							Signup
+							Зарегестрироватся
 						</button>
 					</form>
 				)}
 			</Formik>
-			<Link to={'/login'}>Login</Link>
+			<Link to={'/login'}>Войти</Link>
 		</div>
 	)
 }

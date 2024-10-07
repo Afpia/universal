@@ -9,11 +9,31 @@ type AxiosRequestConfig<Params = undefined, Data = undefined> = Params extends u
 			config?: import('axios').AxiosRequestConfig
 		}
 
-interface Post {
+interface ShortPost {
 	id: number
 	title: string
 	shortText: string
 	date: string
 }
 
-type PostsResponse = Post[]
+interface Comments {
+	id: number
+	comment: string
+	likes: number
+	like: boolean
+}
+
+interface Post {
+	id: number
+	title: string
+	text: string
+	date: string
+	category: string
+}
+
+interface Category {
+	id: number
+	title: string
+}
+
+type PostsResponse = ShortPost[]

@@ -3,5 +3,6 @@ export const ROUTES = {
 	LOGIN: '/login',
 	SIGNUP: '/signup',
 	PROFILE: '/profile',
-	POST: '/post/:id'
+	POST: '/post/:id',
+	MYPOST: '/profile/mypost'
 }
