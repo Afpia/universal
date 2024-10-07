@@ -27,7 +27,7 @@ export const Post = () => {
 				<div className='mt-20 flex flex-col items-center justify-center'>
 					<h2 className='mb-6 text-center text-[40px] font-bold'>{data?.title}</h2>
 					<p className='mb-4 w-[800px]'>{data?.text}</p>
-					<p className='mb-[50px] flex w-[800px] justify-end font-roboto text-[15px] font-bold'>Date create: {data?.date}</p>
+					<p className='font-roboto mb-[50px] flex w-[800px] justify-end text-[15px] font-bold'>Date create: {data?.date}</p>
 				</div>
 			)}
 			<div className='wrapper flex w-[830px] justify-between'>
@@ -41,7 +41,7 @@ export const Post = () => {
 										params: { id },
 										data: { comment: values.comment, id: session.id },
 										config: { headers: { 'Content-Type': 'application/json' } }
-									})
+									}).then(res => res.data)
 									console.log(data)
 									setSubmitting(false)
 								} catch (error) {

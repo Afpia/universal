@@ -1,6 +1,6 @@
-import { prettier } from '@afpia/prettier'
+import config from '@afpia/prettier'
 
 export default {
-	...prettier,
+	...config,
 	plugins: ['prettier-plugin-tailwindcss']
 }
