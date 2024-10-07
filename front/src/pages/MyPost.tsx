@@ -24,25 +24,6 @@ export const MyPost = () => {
 		}
 	}
 
-	console.log(data)
-
-	// const data = [
-	// 	{
-	// 		id: 1,
-	// 		title: 'title',
-	// 		text: 'text',
-	// 		date: 'date',
-	// 		category: 'category'
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		title: 'title',
-	// 		text: 'text',
-	// 		date: 'date',
-	// 		category: 'category'
-	// 	}
-	// ]
-
 	return (
 		<div className='wrapper flex justify-between'>
 			<div className='mt-20'>
@@ -50,14 +31,12 @@ export const MyPost = () => {
 					initialValues={{ title: '', text: '', category: '1' }}
 					onSubmit={async (values, { setSubmitting }) => {
 						try {
-							console.log(values)
-							const data = await postMyPost({
+							await postMyPost({
 								data: { title: values.title, text: values.text, user_id: session.id, category: values.category }
 							}).then(res => {
 								setUpdate(prev => !prev)
 								return res.data
 							})
-							console.log(data)
 							setSubmitting(false)
 						} catch (error) {
 							console.error(error)

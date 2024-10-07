@@ -12,32 +12,6 @@ export const Login = () => {
 	const { setSession } = useAuth()
 	const navigate = useNavigate()
 
-	// const login = async (values) =>
-	// 	await api.post('/login', {
-	// 		email: values.email,
-	// 		password: values.password
-	// 	})
-
-	// const onSubmit = useMutation<SessionField, AxiosError>(login, {
-	// 	onSuccess: data => {
-	// 		navigate('/')
-	// 		setSession({
-	// 			isLogin: true,
-	// 			userId: data.userId,
-	// 			userName: data.userName,
-	// 			userEmail: data.userEmail
-	// 		})
-	// 	},
-	// 	onError: (error, _, { setFieldError }) => {
-	// 		if (error.status === 512) {
-	// 			setFieldError('password', 'Invalid login or password')
-	// 		}
-	// 	},
-	// 	onSettled: (_, __, { setSubmitting }) => {
-	// 		setSubmitting(false)
-	// 	}
-	// })
-
 	return (
 		<div className='mb-20 mt-40 flex flex-col items-center justify-center'>
 			<h1 className='mb-6 text-center text-[40px] font-bold'>Войти</h1>
@@ -46,7 +20,6 @@ export const Login = () => {
 				validationSche
 				ma={LoginScheme}
 				onSubmit={async (values, { setSubmitting, setFieldError }) => {
-					// onSubmit.mutate(values, { setSubmitting, setFieldError })
 					try {
 						const data = await queryClient.fetchQuery<SessionField>('Login', async () => {
 							const response = await api.post('/login', {
@@ -55,7 +28,6 @@ export const Login = () => {
 							})
 							return response.data
 						})
-						console.log(data)
 						navigate('/')
 						setSession({
 							isLogin: true,
@@ -109,7 +81,7 @@ export const Login = () => {
 					</form>
 				)}
 			</Formik>
-			<Link to={'/signup'}>Зарегестрироватся</Link>
+			<Link to={'/signup'}>Зарегистрироваться</Link>
 		</div>
 	)
 }

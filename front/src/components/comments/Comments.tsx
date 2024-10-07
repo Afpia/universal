@@ -12,21 +12,6 @@ export const Comments = ({ idPost, dataAdd }: { idPost: string | undefined; data
 		api.get(`comments/${idPost}`).then(res => res.data)
 	)
 
-	// const data = [
-	// 	{
-	// 		id: 1,
-	// 		text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quae optio tenetur suscipit esse, alias quidem corporis cupiditate adipisci ex architecto tempora voluptates, voluptate totam eligendi repellat inventore provident. Dolorum?',
-	// 		likes: 3,
-	// 		like: false
-	// 	},
-	// 	{
-	// 		id: 1,
-	// 		text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quae optio tenetur suscipit esse, alias quidem corporis cupiditate adipisci ex architecto tempora voluptates, voluptate totam eligendi repellat inventore provident. Dolorum?',
-	// 		likes: 3,
-	// 		like: true
-	// 	}
-	// ]
-	console.log(data)
 	const addLike = (id: number) => {
 		try {
 			queryClient.fetchQuery('AddLike', async () => {
@@ -34,7 +19,6 @@ export const Comments = ({ idPost, dataAdd }: { idPost: string | undefined; data
 					user_id: session.id
 				})
 			})
-			console.log('done')
 		} catch (error) {
 			console.log(error)
 		}

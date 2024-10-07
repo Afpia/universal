@@ -44,7 +44,6 @@ export const Profile = () => {
 							})
 							return response.data
 						})
-						console.log(data)
 						setSession({
 							isLogin: true,
 							id: data.id,

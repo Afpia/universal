@@ -15,7 +15,6 @@ export const Home = () => {
 	const showMore = () => {
 		setLimit(prevLimit => prevLimit + 10)
 	}
-	console.log(data)
 
 	return (
 		<>

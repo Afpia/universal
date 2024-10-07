@@ -1,6 +1,6 @@
 import { ErrorMessage, Formik } from 'formik'
 import { api } from '../utils/api/instance'
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { SignupScheme } from '../utils/helpers/SignupScheme'
 import { useAuth } from '../providers/auth'
 import { useQueryClient } from 'react-query'
@@ -89,7 +89,7 @@ export const Signup = () => {
 							disabled={isSubmitting}
 							className='mb-6 rounded-lg bg-[#4592FF] px-6 py-2 text-[14px] font-medium text-white disabled:bg-[#3B3B3B4D]'
 						>
-							Зарегестрироватся
+							Зарегистрироваться
 						</button>
 					</form>
 				)}

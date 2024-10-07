@@ -99,20 +99,7 @@ export const Header = () => {
 					</div>
 				</div>
 			</div>
-			<div className='h-[55px] bg-[#262D33]'>
-				{/* <div className='wrapper flex h-[55px] items-center justify-between font-bold text-white'>
-					<p>NEWS</p>
-					<p>OPINION</p>
-					<p>SCIENCE</p>
-					<p>LIFE</p>
-					<p>TRAVEL</p>
-					<p>MONEYS</p>
-					<p>SPORTS</p>
-					<p>PEOPLE</p>
-					<p>HEALTH</p>
-					<p>EDUCATION</p>
-				</div> */}
-			</div>
+			<div className='h-[55px] bg-[#262D33]' />
 		</header>
 	)
 }

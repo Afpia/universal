@@ -43,7 +43,6 @@ export const Post = () => {
 										params: { id },
 										data: { comment: values.comment, id: session.id }
 									}).then(res => res.data)
-									console.log(data)
 									setDataAdd(data as Comments)
 									setSubmitting(false)
 								} catch (error) {
