@@ -2,28 +2,27 @@
 	"name": "universal",
 	"private": true,
 	"version": "1.0.0",
-	"description": "",
+	"type": "module",
 	"main": "index.js",
 	"scripts": {
-		"start": "concurrently \"pnpm --prefix ./front dev\" \"cd back & php artisan serve\"",
+		"start": "concurrently \"pnpm --prefix ./front dev\" \"cd back && php artisan serve\"",
 		"front": "pnpm --prefix ./front dev",
 		"back": "cd back & php artisan serve",
-		"format": "prettier --write .",
+		"format": "prettier --config ./front/.prettierrc --write .",
+		"update-deps": "pnpm i && pnpm update-back && pnpm update-front ",
+		"update-back": "cd back && composer i && cd ..",
+		"update-front": "cd front && pnpm i && cd ..",
 		"prepare": "husky",
-		"commit": "git-cz"
+		"commit": "git add . && git-cz"
 	},
-	"keywords": [],
-	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"@commitlint/cli": "^19.4.1",
-		"@commitlint/cz-commitlint": "^19.4.0",
-		"@commitlint/types": "^19.0.3",
-		"commitizen": "^4.3.0",
+		"@afpia/commitlint": "^1.0.1",
+		"@afpia/prettier": "^1.0.4",
 		"concurrently": "^8.2.2",
 		"husky": "^9.1.5",
 		"lint-staged": "^15.2.10",
-		"prettier": "^3.3.3"
+		"prettier-plugin-tailwindcss": "^0.6.6"
 	},
 	"lint-staged": {
 		"**/*.{js,jsx,ts,tsx}": [
@@ -37,5 +36,6 @@
 		"commitizen": {
 			"path": "@commitlint/cz-commitlint"
 		}
-	}
+	},
+	"packageManager": "pnpm@9.10.0"
 }
